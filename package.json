@@ -1,0 +1,18 @@
+{
+  "name": "com.3rd-party-guy.unistate",
+  "version": "1.0.0",
+  "displayName": "UniState",
+  "description": "Minimalistic state machine library heavily inspired by stateless",
+  "author": {
+    "name": "Nikolay Hadzhiev",
+    "email": "nikolayhadzhiev@outlook.com",
+    "url": "https://github.com/3rd-Party-Guy"
+  },
+  "dependencies": {
+  },
+  "keywords": [
+    "AI",
+    "Prototyping",
+    "Generative"
+  ]
+}

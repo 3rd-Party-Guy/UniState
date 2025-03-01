@@ -9,6 +9,7 @@
     "url": "https://github.com/3rd-Party-Guy"
   },
   "dependencies": {
+    "com.3rd-party-guy.unihelper": "https://github.com/3rd-Party-Guy/UniHelper.git"
   },
   "keywords": [
     "AI",

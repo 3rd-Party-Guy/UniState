@@ -1,7 +1,9 @@
 {
     "name": "com.3rd-party-guy.unistate",
     "rootNamespace": "UniState",
-    "references": [],
+    "references": [
+        "GUID:291b56e70259499008a374e573fd2c7b"
+    ],
     "includePlatforms": [],
     "excludePlatforms": [],
     "allowUnsafeCode": false,

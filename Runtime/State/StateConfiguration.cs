@@ -3,6 +3,12 @@ using System.Collections.Generic;
 
 namespace UniState {
     public class StateConfiguration<TState, TTrigger> {
+        public IEnumerable<Func<object>> EntryFunctions => onEntryFunctions;
+        public IEnumerable<Func<object>> ExitFunctions => onExitFunctions;
+        
+        public IReadOnlyDictionary<TTrigger, TState> DefinedTransitions => definedTransitions;
+        public IEnumerable<TTrigger> IgnoredTriggers => ignoredTriggers;
+
         readonly List<Func<object>> onEntryFunctions = new();
         readonly List<Func<object>> onExitFunctions = new();
 

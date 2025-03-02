@@ -7,7 +7,7 @@ namespace UniState {
         where TTrigger : struct, IConvertible {
         public TState State { get; private set; }
 
-        Dictionary<TState, StateConfiguration<TState, TTrigger>> stateConfigurations = new();
+        readonly Dictionary<TState, StateConfiguration<TState, TTrigger>> stateConfigurations = new();
 
         public StateMachine(TState initialState) {
             if (!typeof(TState).IsEnum) {

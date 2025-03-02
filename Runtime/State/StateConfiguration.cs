@@ -44,14 +44,12 @@ namespace UniState {
         }
 
         public StateConfiguration<TState, TTrigger> OnEntryFrom(TState state, Func<object> action) {
-            onEntryFromFunctions[state] ??= new();
-            onEntryFromFunctions[state].Add(action);
+            onEntryFromFunctions.Add(state, action);
             return this;
         }
 
         public StateConfiguration<TState, TTrigger> OnExitTo(TState state, Func<object> action) {
-            onExitToFunctions[state] ??= new();
-            onExitToFunctions[state].Add(action);
+            onExitToFunctions.Add(state, action);
             return this;
         }
     }

@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using UniHelper;
+using UnityEngine;
 
 namespace UniState {
     public class StateMachine<TState, TTrigger>
@@ -13,18 +14,28 @@ namespace UniState {
 
         public void Signal(TTrigger trigger)
         {
-            if (!stateConfigurations.TryGetValue(State, out var currentConfig))
-                throw new InvalidOperationException($"No configuration found for state {State}.");
+            var currentConfig = stateConfigurations[State];
+            Debug.Assert(currentConfig != null, $"No configuration found for state {State}");
+
             if (currentConfig.IgnoredTriggers.Contains(trigger))
                 return;
-            if (!currentConfig.DefinedTransitions.TryGetValue(trigger, out var nextState))
+            if (!currentConfig.DefinedTransitions.TryGetValue(trigger, out var newState))
                 throw new InvalidOperationException($"No defined transition for {trigger} from {State}.");
 
-            currentConfig.ExitFunctions.ForEach(e => e());
-            State = nextState;
+            var oldState = State;
+
+            currentConfig.ExitFunctions.ForEach(e => _ = e());
+            if (currentConfig.OnExitToFunctions.TryGetValue(newState, out var exitFunctions)) {
+                exitFunctions.ForEach(e => _ = e());
+            }
+
+            State = newState;
             stateConfigurations[State] ??= new();
 
-            stateConfigurations[State].EntryFunctions.ForEach(e => e());
+            stateConfigurations[State].EntryFunctions.ForEach(e => _ = e());
+            if (stateConfigurations[State].OnEntryFromFunctions.TryGetValue(oldState, out var entryTransitions)) {
+                entryTransitions.ForEach(e => _ = e());
+            }
         }
 
         public StateMachine(TState initialState) {

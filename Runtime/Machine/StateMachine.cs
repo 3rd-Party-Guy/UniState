@@ -9,31 +9,31 @@ namespace UniState {
         where TState : struct, IConvertible
         where TTrigger : struct, IConvertible {
         public TState State { get; private set; }
+        public StateConfiguration<TState, TTrigger> CurrentConfiguration => stateConfigurations[State];
 
         readonly Dictionary<TState, StateConfiguration<TState, TTrigger>> stateConfigurations = new();
 
         public void Signal(TTrigger trigger)
         {
-            var currentConfig = stateConfigurations[State];
-            Debug.Assert(currentConfig != null, $"No configuration found for state {State}");
+            Debug.Assert(CurrentConfiguration != null, $"No configuration found for state {State}");
 
-            if (currentConfig.IgnoredTriggers.Contains(trigger))
+            if (CurrentConfiguration.IgnoredTriggers.Contains(trigger))
                 return;
-            if (!currentConfig.DefinedTransitions.TryGetValue(trigger, out var newState))
+            if (!CurrentConfiguration.DefinedTransitions.TryGetValue(trigger, out var newState))
                 throw new InvalidOperationException($"No defined transition for {trigger} from {State}.");
 
             var oldState = State;
 
-            currentConfig.ExitFunctions.ForEach(e => _ = e());
-            if (currentConfig.OnExitToFunctions.TryGetValue(newState, out var exitFunctions)) {
+            CurrentConfiguration.ExitFunctions.ForEach(e => _ = e());
+            if (CurrentConfiguration.OnExitToFunctions.TryGetValue(newState, out var exitFunctions)) {
                 exitFunctions.ForEach(e => _ = e());
             }
 
+            stateConfigurations[newState] ??= new();
             State = newState;
-            stateConfigurations[State] ??= new();
 
-            stateConfigurations[State].EntryFunctions.ForEach(e => _ = e());
-            if (stateConfigurations[State].OnEntryFromFunctions.TryGetValue(oldState, out var entryTransitions)) {
+            CurrentConfiguration.EntryFunctions.ForEach(e => _ = e());
+            if (CurrentConfiguration.OnEntryFromFunctions.TryGetValue(oldState, out var entryTransitions)) {
                 entryTransitions.ForEach(e => _ = e());
             }
         }

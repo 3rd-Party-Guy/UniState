@@ -50,3 +50,5 @@ public class MathMover : MonoBehaviour
   }
 }
 ```
+## Further Reading
+If you are interested in a more unorthodox implementation of an FSM, take a look at [Unity FSM](https://github.com/3rd-Party-Guy/Unity-FSM) - a SOAP-implementation of FSM, being designer/non-coder friendly, runtime editable, and modular.

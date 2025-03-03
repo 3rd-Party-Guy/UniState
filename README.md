@@ -10,7 +10,7 @@ UniState is a minimal Finite State Machine solution inspired heavily by [the Sta
 UniState is extremely small, consisting of two source files and a very small dependency: [UniHelper](https://github.com/3rd-Party-Guy/UniHelper)
 This makes UniState extremely easy to get started with, understand, and expand.
 ## Example
-```
+```csharp
 using UniState;
 using UnityEngine;
 

@@ -4,7 +4,7 @@ using System.Linq;
 using UniHelper;
 
 namespace UniState {
-    internal class StateConfiguration<TState, TTrigger> {
+    public class StateConfiguration<TState, TTrigger> {
         public IEnumerable<Func<object>> EntryFunctions => onEntryFunctions;
         public IEnumerable<Func<object>> ExitFunctions => onExitFunctions;
         

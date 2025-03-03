@@ -25,7 +25,7 @@ public class MathMover : MonoBehaviour
 
   void Start()
   {
-    // create FSM with initial state as Horizontal
+    // create FSM with initial state as Diagonal
     fsm = new StateMachine<State, Trigger>(State.Diagonal);
 
     // configure

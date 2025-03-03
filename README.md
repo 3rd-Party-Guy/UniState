@@ -45,7 +45,7 @@ public class MathMover : MonoBehaviour
       // diagonal logic here
     }
     else if (fsm.State is State.Circle) {
-      // circle  logic here
+      // circle logic here
     }
   }
 }

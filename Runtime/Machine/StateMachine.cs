@@ -24,17 +24,17 @@ namespace UniState {
 
             var oldState = State;
 
-            CurrentConfiguration.ExitFunctions.ForEach(e => _ = e());
+            CurrentConfiguration.ExitFunctions.ForEach(e => e());
             if (CurrentConfiguration.OnExitToFunctions.TryGetValue(newState, out var exitFunctions)) {
-                exitFunctions.ForEach(e => _ = e());
+                exitFunctions.ForEach(e => e());
             }
 
             stateConfigurations[newState] ??= new();
             State = newState;
 
-            CurrentConfiguration.EntryFunctions.ForEach(e => _ = e());
+            CurrentConfiguration.EntryFunctions.ForEach(e => e());
             if (CurrentConfiguration.OnEntryFromFunctions.TryGetValue(oldState, out var entryTransitions)) {
-                entryTransitions.ForEach(e => _ = e());
+                entryTransitions.ForEach(e => e());
             }
         }
 

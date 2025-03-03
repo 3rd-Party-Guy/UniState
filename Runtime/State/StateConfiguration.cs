@@ -5,20 +5,20 @@ using UniHelper;
 
 namespace UniState {
     public class StateConfiguration<TState, TTrigger> {
-        public IEnumerable<Func<object>> EntryFunctions => onEntryFunctions;
-        public IEnumerable<Func<object>> ExitFunctions => onExitFunctions;
+        public IEnumerable<Action> EntryFunctions => onEntryFunctions;
+        public IEnumerable<Action> ExitFunctions => onExitFunctions;
         
-        public IReadOnlyDictionary<TState, IEnumerable<Func<object>>> OnEntryFromFunctions => onEntryFromFunctions.ReadOnlyDictionary;
-        public IReadOnlyDictionary<TState, IEnumerable<Func<object>>> OnExitToFunctions => onExitToFunctions.ReadOnlyDictionary;
+        public IReadOnlyDictionary<TState, IEnumerable<Action>> OnEntryFromFunctions => onEntryFromFunctions.ReadOnlyDictionary;
+        public IReadOnlyDictionary<TState, IEnumerable<Action>> OnExitToFunctions => onExitToFunctions.ReadOnlyDictionary;
 
         public IReadOnlyDictionary<TTrigger, TState> DefinedTransitions => definedTransitions;
         public IEnumerable<TTrigger> IgnoredTriggers => ignoredTriggers;
 
-        readonly List<Func<object>> onEntryFunctions = new();
-        readonly List<Func<object>> onExitFunctions = new();
+        readonly List<Action> onEntryFunctions = new();
+        readonly List<Action> onExitFunctions = new();
 
-        readonly ObservableListDictionary<TState, Func<object>> onEntryFromFunctions = new();
-        readonly ObservableListDictionary<TState, Func<object>> onExitToFunctions = new();
+        readonly ObservableListDictionary<TState, Action> onEntryFromFunctions = new();
+        readonly ObservableListDictionary<TState, Action> onExitToFunctions = new();
 
         readonly Dictionary<TTrigger, TState> definedTransitions = new();
         readonly List<TTrigger> ignoredTriggers = new();
@@ -33,22 +33,22 @@ namespace UniState {
             return this;
         }
 
-        public StateConfiguration<TState, TTrigger> OnEntry(Func<object> action) {
+        public StateConfiguration<TState, TTrigger> OnEntry(Action action) {
             onEntryFunctions.Add(action);
             return this;
         }
 
-        public StateConfiguration<TState, TTrigger> OnExit(Func<object> action) {
+        public StateConfiguration<TState, TTrigger> OnExit(Action action) {
             onExitFunctions.Add(action);
             return this;
         }
 
-        public StateConfiguration<TState, TTrigger> OnEntryFrom(TState state, Func<object> action) {
+        public StateConfiguration<TState, TTrigger> OnEntryFrom(TState state, Action action) {
             onEntryFromFunctions.Add(state, action);
             return this;
         }
 
-        public StateConfiguration<TState, TTrigger> OnExitTo(TState state, Func<object> action) {
+        public StateConfiguration<TState, TTrigger> OnExitTo(TState state, Action action) {
             onExitToFunctions.Add(state, action);
             return this;
         }

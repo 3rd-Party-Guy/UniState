@@ -49,8 +49,12 @@ namespace UniState {
         }
 
         public StateConfiguration<TState, TTrigger> Configure(TState state) {
-            stateConfigurations[state] ??= new();
-            return stateConfigurations[state];
+            if (!stateConfigurations.TryGetValue(state, out var config)) {
+                stateConfigurations.Add(state, new());
+                config = stateConfigurations[state];
+            }
+
+            return config;
         }
     }
 }

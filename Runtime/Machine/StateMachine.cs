@@ -29,7 +29,8 @@ namespace UniState {
                 exitFunctions.ForEach(e => e());
             }
 
-            stateConfigurations[newState] ??= new();
+            if (!stateConfigurations.ContainsKey(newState))
+                stateConfigurations[newState] = new();
             State = newState;
 
             CurrentConfiguration.EntryFunctions.ForEach(e => e());
